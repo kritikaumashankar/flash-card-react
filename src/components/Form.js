@@ -3,6 +3,13 @@ import React from 'react';
 class Form extends React.Component {
   state = { question: '',answer: '' }
 
+  componentDidUpdate(prevProps, prevState){
+    console.log(prevProps)
+    if(prevProps.id !== this.props.id){
+      this.setState({...this.props})
+    }
+  }
+
   handleSubmit = (e) => {
     console.log("inside form")
     e.preventDefault()
@@ -14,12 +21,11 @@ class Form extends React.Component {
     this.setState({ question: '',answer: '' })
   }
 
-  handleQuestionChange = (e) => {
-    this.setState({ question: e.target.value })
+  handleChange = (e) => {
+    const {target: {name,value}} =e
+    this.setState({ [name]:value })
   }
-  handleAnswerChange = (e) => {
-    this.setState({ answer: e.target.value })
-  }
+ 
 
 
   render() {
@@ -35,14 +41,16 @@ class Form extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
         <input 
+        name="question"
           value={question}
-          onChange={this.handleQuestionChange}
+          onChange={this.handleChange}
           required 
           placeholder="Question" 
         />
         <input 
+        name="answer"
           value={answer}
-          onChange={this.handleAnswerChange}
+          onChange={this.handleChange}
           required 
           placeholder="Answer" 
         />

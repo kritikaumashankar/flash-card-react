@@ -7,7 +7,6 @@ import {Button,Row,Col} from 'react-materialize';
 class App extends React.Component {
   state = {
     lists: [],
-    editing: null
   }
 
   componentDidUpdate(){
@@ -50,15 +49,14 @@ class App extends React.Component {
         }
     })
     debugger
-    this.setState({ lists: [...newList] })
+    this.setState({ lists: newList })
   }
 
-  handleEdit = (qa) => (
-    <Form qa2 = {qa} editQA={this.editQA} addQA={this.addQA} />
-  )
-   
+  handleEdit = (qa) => {
+    debugger
+    return <Form qa2 = {qa} editQA={this.editQA} />
+  }
 
-  
   
   qaList = () => {
     return this.state.lists.map(qa => {
@@ -94,7 +92,7 @@ class App extends React.Component {
         
           <h1>FlashCard</h1>
           <Button onClick={this.playButton}>Play</Button>
-          <Button onClick={this.listButton}>List</Button>
+          <Button onClick={this.listButton}>Questions</Button>
           <div id="play">
             <h3>Question</h3>
             <h4><span id='ques'></span></h4>
@@ -105,7 +103,7 @@ class App extends React.Component {
             <Button onClick={this.displayAnswer}>Click here for Answer</Button>
             </div>
           <div id="list">
-            <Form qa2 = {null} editQA={this.editQA} addQA={this.addQA} />
+            <Form qa2 = {null} addQA={this.addQA} />
             <div>
             {this.qaList()}
             </div>
